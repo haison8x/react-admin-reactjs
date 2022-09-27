@@ -5,7 +5,7 @@ import type { Params } from 'nestjs-pino';
 import { multistream } from 'pino';
 import type { ReqId } from 'pino-http';
 
-const passUrl = new Set(['/health', '/graphql']);
+const passUrl = new Set(['/health']);
 
 export const loggerOptions: Params = {
   pinoHttp: [{

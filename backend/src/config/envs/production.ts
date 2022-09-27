@@ -24,9 +24,5 @@ export const config = {
     },
     autoLoadEntities: true,
   },
-  graphql: {
-    debug: false,
-    playground: false,
-  },
   foo: 'pro-bar',
 };

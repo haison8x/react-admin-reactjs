@@ -4,10 +4,6 @@ import { PinoLogger } from 'nestjs-pino';
 
 @Injectable()
 export class LoggerContextMiddleware implements NestMiddleware {
-  // GraphQL logging uses the apollo plugins.
-  // https://docs.nestjs.com/graphql/plugins
-  // https://docs.nestjs.com/graphql/field-middleware
-
   constructor(private readonly logger: PinoLogger) {}
 
   public use(req: Request, _res: Response, next: () => void): void {

@@ -78,7 +78,6 @@ npm start
 |   |   +-- providers // Nest Providers
 |   |   +-- * // models, repositories, services...
 |   +-- shared // Shared Nest Modules
-|   +-- gql // GraphQL Structure
 |   +-- * // Other Nest Modules, non-global, same as common structure above
 +-- test // Jest testing
 +-- typings // Modules and global type definitions
@@ -114,7 +113,6 @@ npm start
 - [Unit Test](src/sample/providers/crud.service.spec.ts)
 - [E2E Test](test/e2e)
 - [Shared Modules](src/shared) Example
-- [GraphQL Structure](src/gql) Example
 
 ## Documentation
 

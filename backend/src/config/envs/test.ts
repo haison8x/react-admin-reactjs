@@ -14,7 +14,4 @@ export const config = {
     },
     autoLoadEntities: true,
   },
-  graphql: {
-    playground: false,
-  },
 };

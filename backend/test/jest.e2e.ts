@@ -3,7 +3,6 @@ import type { Config } from 'jest';
 
 import config from '../jest.config';
 
-// https://github.com/nestjs/graphql/issues/810#issuecomment-618308354
 const jestConfig: Config = {
   ...config,
   rootDir: '.',
@@ -14,7 +13,7 @@ const jestConfig: Config = {
       tsconfig: '<rootDir>/tsconfig.e2e.json',
       // https://kulshekhar.github.io/ts-jest/docs/getting-started/options/astTransformers
       astTransformers: {
-        before: ['<rootDir>/jest.e2e.transformer.ts'],
+        before: [],
       },
       // https://kulshekhar.github.io/ts-jest/docs/getting-started/options/isolatedModules
       // isolatedModules: true,
