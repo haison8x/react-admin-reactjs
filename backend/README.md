@@ -101,7 +101,6 @@ npm start
 - [Global Exception Filter](src/common/filters/exceptions.filter.ts)
 - [Global Logging Context Middleware](src/common/middleware/logger-context.middleware.ts)
 - [Custom Logger](src/config/logger.config.ts) with nestjs-pino
-- [Custom Decorators](src/debug) Example at Nest level
 - [Configuration](src/config)
 - [Authentication](src/auth) - JWT and Session login with Passport
 - [Role-based Guard](src/common/guards/roles.guard.ts)
@@ -110,8 +109,6 @@ npm start
   - [Sample](src/sample/controllers/sample.controller.ts) Parameter and [DTO](src/sample/dto/sample.dto.ts)
   - [CRUD API](src/sample/controllers/crud.controller.ts) Sample
 - [Database Query](src/sample/providers/database.service.ts) Example
-- [Unit Test](src/sample/providers/crud.service.spec.ts)
-- [E2E Test](test/e2e)
 - [Shared Modules](src/shared) Example
 
 ## Documentation

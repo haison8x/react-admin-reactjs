@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Sampletable1 } from '#entity/sampledb1';
+import { Category } from '#entity/retail';
 import { FoobarService } from './foobar.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Sampletable1])],
+  imports: [TypeOrmModule.forFeature([Category])],
   providers: [FoobarService],
   exports: [FoobarService],
 })

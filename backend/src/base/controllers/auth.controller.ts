@@ -1,64 +1,44 @@
-import { Controller, Get, Post, UseGuards, Req, Res, UnauthorizedException, Body } from '@nestjs/common';
-import type { Request, Response } from 'express';
+import { Controller, Get, Post, UseGuards, UnauthorizedException, Body } from '@nestjs/common';
 
-import { AuthService, LocalLoginGuard, Payload, AuthenticatedGuard, LocalAuthGuard,
-  JwtAuthGuard, JwtSign, JwtVerifyGuard } from '../../auth';
-import { ReqUser } from '../../common';
+import { AuthService, Login, Payload, JwtAuthGuard, JwtSign, JwtVerifyGuard } from '../../auth';
+import { ReqUser, Public } from '../../common';
 
 /**
  * https://docs.nestjs.com/techniques/authentication
  */
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(private auth: AuthService) {}
 
-  /**
-   * See test/e2e/local-auth.spec.ts
-   * need username, password in body
-   * skip guard to @Public when using global guard
-   */
+  @Public()
   @Post('login')
-  @UseGuards(LocalLoginGuard)
-  public login(@ReqUser() user: Payload): Payload {
-    return user;
-  }
-
-  @Get('logout')
-  public logout(@Req() req: Request, @Res() res: Response): void {
-    req.logout(() => {
-      res.redirect('/');
-    });
-  }
-
-  @Get('check')
-  @UseGuards(AuthenticatedGuard)
-  public check(@ReqUser() user: Payload): Payload {
-    return user;
-  }
-
-  /**
-   * See test/e2e/jwt-auth.spec.ts
-   */
-  @UseGuards(LocalAuthGuard)
-  @Post('jwt/login')
-  public jwtLogin(@ReqUser() user: Payload): JwtSign {
-    return this.auth.jwtSign(user);
+  public async jwtLogin(@Body() login: Login): Promise<JwtSign> {
+    const user = await this.auth.validateUser(login.username, login.password);
+    if (!user) {
+      throw new UnauthorizedException('InvalidUser');
+    }
+    const payload = { userId: user.id.toString(), username: user.username, role: user.role };
+    return this.auth.jwtSign(payload, user);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('jwt/check')
-  public jwtCheck(@ReqUser() user: Payload): Payload {
-    return user;
+  @Get('check')
+  public jwtCheck(@ReqUser() payload: Payload): Payload {
+    return payload;
   }
 
   // Only verify is performed without checking the expiration of the access_token.
   @UseGuards(JwtVerifyGuard)
-  @Post('jwt/refresh')
-  public jwtRefresh(@ReqUser() user: Payload, @Body('refresh_token') token?: string): JwtSign {
-    if (!token || !this.auth.validateRefreshToken(user, token)) {
+  @Post('refresh')
+  public async jwtRefresh(@ReqUser() payload: Payload, @Body('refresh_token') token?: string): Promise<JwtSign> {
+    if (!token || !this.auth.validateRefreshToken(payload, token)) {
+      throw new UnauthorizedException('InvalidRefreshToken');
+    }
+    const user = await this.auth.getUser(payload.username);
+    if (!user) {
       throw new UnauthorizedException('InvalidRefreshToken');
     }
 
-    return this.auth.jwtSign(user);
+    return this.auth.jwtSign(payload, user);
   }
 }

@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-import type { User } from './user.interface';
+import { User } from '#entity/auth';
 
 @Injectable()
 export class UserService {
-  public async fetch(username: string): Promise<User & { password: string }> {
-    return Promise.resolve({
-      id: 'test',
-      password: 'crypto',
-      name: username,
-      email: `${username}@test.com`,
-      roles: ['test'], // ['admin', 'etc', ...]
-    });
+  constructor(
+    @InjectRepository(User)
+    private table: Repository<User>,
+  ) {}
+
+  public async fetch(username: string): Promise<User | null> {
+    return this.table.findOneBy({ username });
   }
 }

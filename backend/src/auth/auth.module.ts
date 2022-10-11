@@ -5,7 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../shared/user';
 import { AuthSerializer } from './auth.serializer';
 import { AuthService } from './auth.service';
-import { LocalStrategy, JwtStrategy, JwtVerifyStrategy } from './strategies';
+import { JwtStrategy, JwtVerifyStrategy } from './strategies';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { LocalStrategy, JwtStrategy, JwtVerifyStrategy } from './strategies';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, AuthSerializer, LocalStrategy, JwtStrategy, JwtVerifyStrategy],
+  providers: [AuthService, AuthSerializer, JwtStrategy, JwtVerifyStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
