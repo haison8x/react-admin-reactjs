@@ -13,10 +13,10 @@ react-admin-net is admin dashboard template used react-admin frontend framework 
 	* [react-query](https://react-query-v3.tanstack.com/)
 	* [TypeScript](https://www.typescriptlang.org/)
 * **Backend**:
-	* [NestJs](https://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-6.0)
-	* [TypeOrm](https://github.com/DapperLib/Dapper)
+	* [NestJs](https://docs.nestjs.com/)
+	* [TypeOrm](https://typeorm.io/)
 	* [MySql 8.0.30](https://www.mysql.com/)
-	* [Template](https://www.mysql.com/)	
+	* [CatsMiaow/nestjs-project-structure](https://github.com/CatsMiaow/nestjs-project-structure)	
 * **Deployment**
 	* [Docker](https://docs.docker.com/)
 	* [docker-compose](https://docs.docker.com/compose/) 
@@ -28,6 +28,7 @@ React-admin-net is easy to run by docker-compose
 using:
 
 ```sh
+docker-compose build
 docker-compose up -d
 ```
 Then check the your site at: http://localhost:8082 and check phpadmin at http://localhost:8081
